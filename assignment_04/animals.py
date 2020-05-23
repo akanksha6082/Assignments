@@ -46,6 +46,7 @@ class Hare(Herbivores):
 	
 	__species = 'mammal'
 
+	
 	def description(self):
 		print ("Hare is fast running and is long eared mammal that resembles rabbit")
 	
