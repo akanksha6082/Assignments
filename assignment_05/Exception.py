@@ -1,6 +1,5 @@
 import sys
 def inputno(prompt):
-
     while True:
         try:
             num1 = (int(input(prompt)))
