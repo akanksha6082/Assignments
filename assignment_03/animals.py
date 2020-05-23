@@ -143,8 +143,6 @@ class Elephant(Animal):
 	
 	
 	
-		
-
 rabbit = Rabbit("Oreo", "white")
 rabbit.move()
 print (rabbit.species)
