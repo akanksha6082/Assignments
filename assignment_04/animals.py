@@ -171,7 +171,7 @@ class Human(Omnivores):
 	def get_species(self):
 		print(self.__species)
 
-human = Human("professor", 25)
+human = Human("Tony", 25)
 human.features()
 human.description()
 human.food()
