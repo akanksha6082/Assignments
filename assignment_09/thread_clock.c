@@ -4,15 +4,15 @@
 #include<pthread.h>
 #include<time.h>
 
-
-
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 int hour = 0, minutes = 0 , seconds = 0;
 
 void * calc_hour(){
 	
 	while(1){
-		
+
+		pthread_mutex_lock( &mutex );
 		if(minutes == 60){
 			
 			minutes  = 0;
@@ -21,13 +21,12 @@ void * calc_hour(){
 				hour = 0; 			
 			}
 			else{
+
 				hour++;
-			}
-					
-		}	
-		
-	}
-		
+			}		
+		}
+		pthread_mutex_unlock( &mutex );		
+	}		
 }
 
 void * calc_min(){
@@ -35,9 +34,10 @@ void * calc_min(){
 	while(1){
 
 		if(seconds == 60){
-			
+			pthread_mutex_lock(&mutex);
 			minutes ++;
 			seconds = 0;	
+			pthread_mutex_unlock(&mutex);
 		}
 		
 	}
@@ -46,13 +46,14 @@ void * calc_min(){
 
 void * calc_sec(){
 
-
 	while(1){
 		
+		pthread_mutex_lock(&mutex);
 		if(seconds != 60){
 			sleep(1);
 			seconds++;	
 		}
+		pthread_mutex_unlock(&mutex);
 		
 	}
 }
@@ -86,8 +87,6 @@ int main(int argc, char * argv[]){
 	time_t now;
 	time(&now);
 
-	
-
 	struct tm *local_time = localtime(&now);
 
 	// systems local time
@@ -98,8 +97,14 @@ int main(int argc, char * argv[]){
 	pthread_t tmain;
 	
 	pthread_create(&tmain, NULL, display, NULL );
+
 	pthread_join(tmain, NULL);
 
 	return 0;
 }
-
+/*
+thread id
+program counter
+register set
+a stack
+*/
