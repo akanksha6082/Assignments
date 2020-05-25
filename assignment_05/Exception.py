@@ -39,6 +39,8 @@ if __name__ == "__main__" :
 
         except (IndexError):
             print("invalid indexing of the array")
+        except(ValueError):
+            print("Invalid Inputs please try again!")
 
 
 
